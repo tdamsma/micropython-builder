@@ -95,6 +95,11 @@ RUN export ESPIDF_SUPHASH_V3=$(cat ${WORK_DIR}/espdif_suphash_v3) && \
 
     # (cd esp-idf/components/mbedtls/mbedtls; git log -n1)
 
+# Install custom components
+
+RUN git clone https://github.com/devbis/st7789_mpy.git ${WORK_DIR}/st7789_mpy
+RUN cd ${WORK_DIR}/micropython/ports/esp32 && make USER_C_MODULES=../../../st7789_mpy/ all
+
 # COMPILE FIRMWARE
 
 WORKDIR ${WORK_DIR}/micropython/ports/esp32
